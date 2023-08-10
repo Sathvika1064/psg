@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VOX TRANSLATE</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            margin: 0; 
+        }
+        body, div, img {
+            padding: 0;
+            border: 0;
+        }
+        .logo {
+            width: fit-content;
+            background-color: black;
+            height: auto;
+            display: block;
+        }
+        .convert {
+            background-color: black;
+            width: 98.9vw;
+            height: 120vh; 
+            text-align: center; 
+        }
+        .convert p {
+            margin: 0px;
+            padding-top: 60px;
+            background-color: black;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 70px;
+        }
+
+        .link-txt {
+            padding: 8px;
+            width: 350px;
+            border-radius: 17px;
+            color: rgb(27, 59, 111);
+            font-family: "Martian Mono";
+            border-color: rgb(217, 217, 217);
+            background-color: rgb(217, 217, 217);
+            margin-bottom: 10px; 
+        }
+
+        .link-txt::placeholder {
+            color: rgb(27, 59, 111);
+            font-size: 15px;
+        }
+
+        .link-txt + select {
+            border-radius: 17px; 
+            border-color: rgb(217, 217, 217);
+            padding: 8px;
+            width: 350px;
+            color: rgb(27, 59, 111);
+            font-family: "Martian Mono";
+            background-color: rgb(217, 217, 217);
+        }
+        .btn{
+            margin-top:50px;
+            font-size: 18px;
+            color: white;
+            padding: 10px;
+            font-family: "Martino Mono";
+            width:150px;
+            border-radius: 17px;
+            border-color: rgb(217, 217, 217);
+            border-width: 5px;
+            background-color: rgb(27, 59, 111);
+            
+        }
+        .video-plyr{
+            height:150vh;
+            margin: 0px;
+            background-color: black;
+            text-align: center;
+        }
+        .link-txt1
+        {
+            border-color: rgb(217, 217, 217);
+            padding: 8px;
+            width: 350px;
+            color: rgb(27, 59, 111);
+            font-family: "Martian Mono";
+            background-color: rgb(217, 217, 217);
+        }
+        .link-txt1::placeholder {
+            color: rgb(27, 59, 111);
+            font-size: 15px;
+        }
+        .feature{
+            padding: 9px;
+            width: 100px;
+            background-color: rgb(85, 204, 255);
+            font-family: "Mark One";
+            font-size: 13px;
+            font-weight: 200;
+        }
+        .descr{
+            height:320px;
+            width:78%;
+            margin-left: 10%;
+            text-align: center;
+            background-color: rgb(33, 41, 92);
+        }
+        .three{
+            float: left;
+            width: 23%;
+            text-align: left;
+            margin-left:110px;
+            margin-top: 30px;
+            color: rgb(105, 110, 112);
+            font-family: "Martino Mano";
+            font-size: 20px;
+        }
+        .descr::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .feedback{
+            margin:0px;
+            padding: 0px;
+            background-color: black;
+            height:103vh;
+            text-align: center;
+        }
+        .feedback p{
+            margin:0px;
+        }
+        .cont{
+            width:50%;
+            margin-top: 80px;
+            text-align: center;
+            float:left;
+        }
+        .cont::placeholder{
+            margin:10px;
+            font-family:'Martel';
+            color:rgb(235, 235, 235);
+            padding:8px;
+            text-align: center;
+        }
+        .cont.input-container{
+            margin-left:20px;
+            padding:8px;
+        }
+        .sub-btn{
+            font-size: 18px;
+            color: white;
+            padding: 10px;
+            font-family: "Martino Mono";
+            width:150px;
+            border-radius: 17px;
+            border-color: gray;
+            border-width: 5px;
+            background-color: rgb(238, 68, 68);
+        }
+        .readyToPlayButton {
+            display:none;
+            background-color: #007bff; 
+            color: white;
+            padding: 10px 20px; 
+            font-family: "Martino Mono";
+            font-size: 18px;
+            border-radius: 17px;
+            border-color: gray;
+            border-width: 5px;
+            cursor: pointer; 
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="file:///C:/Users/DELL/image/logo.jpg" style="height:100vh;width:203.3vh">
+    </div>
+    <div class="convert">
+        <p style="color: rgb(242, 32, 13); font-family: Margarine; font-size: 60px;">Ready to convert?</p><br>
+        <p style="color: white;font-family:Martian Mono;font-size:40px">It's time to <br>supercharge your learning experience,<br>Paste your video link <br>below, then hit <br>convert!</p>
+        <div class="input-container">
+            <input type="url" id="videoLink" placeholder="https://video-link.com" class="link-txt" style="margin-bottom: 40px;"><br>
+            <input type="text" id="targetLanguage" placeholder="Target Language" class="link-txt" style="margin-bottom: 40px;"><br>
+            <button class="btn" onclick="runFunction()">Convert</button>
+            <div id="result"></div> 
+            <div id="readyToPlay">
+                <button class="readyToPlayButton" onclick="playAudio()">Ready to Play</button>
+            </div>              
+            
+        </div>
+    </div>
+    <div class="video-plyr">
+        <div id="videoContainer" style="display: none; text-align: center;">
+            <iframe id="videoFrame" width="700" height="400" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <script>
+            function embedVideo() {
+                var inputLink = document.getElementById("videoLink").value;
+                var videoId = extractVideoId(inputLink);
+        
+                if (videoId) {
+                    var embedCode = "https://www.youtube.com/embed/" + videoId + "?controls=0";
+                    document.getElementById("videoFrame").src = embedCode;
+                    document.getElementById("videoContainer").style.display = "block";
+                } else {
+                    alert("Invalid YouTube Video Link!");
+                }
+            }
+        
+            function extractVideoId(url) {
+                var videoId = null;
+                var pattern = /(?:youtu.be\/|youtube.com\/(?:watch\?.*\bv=|v\/|embed\/))([\w\-]+)/i;
+                var match = url.match(pattern);
+                if (match && match[1].length === 11) {
+                    videoId = match[1];
+                }
+                return videoId;
+            }
+        
+            function runFunction() {
+                embedVideo();
+                var data = {
+                    "parameter1": document.getElementById("videoLink").value,
+                    "parameter2": "output_audio.wav",
+                    "parameter3": document.getElementById("targetLanguage").value
+                };
+        
+                $.ajax({
+                    url: '/run_function',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function(response) {
+                        console.log("Result:", response.result);
+                        var audioPlayer = document.getElementById("audioPlayer");
+                        var audioSource = document.getElementById("audioSource");
+                        audioSource.src = response.result;
+                        audioPlayer.load();
+                        $("#readyToPlay").css("display", "inline-block"); // Show the "Ready to Play" button
+                    },
+                    error: function(error) {
+                        console.error("Error:", error);
+                        $("#readyToPlay").css("display", "none"); // Hide the "Ready to Play" button in case of an error
+                    }
+                });
+            }
+        </script>
+        
+        <input type="text" placeholder="Enter the time frame" class="link-txt1" style="margin-top: 80px;">
+        <button class="feature"><b>CLIP</b></button><br>
+        <input type="text" placeholder="Search" class="link-txt1" style="margin-top: 50px;">
+        <button class="feature" style="margin-bottom:90px"><b>SEARCH</b></button><br>
+        <div class="descr">
+            <div class="three">
+                <b><p>Is this <br>converter free?</p></b>
+                <b><p style="color: rgb(225, 220, 220)">Yes,Our YouTube<br>video converter is<br>completely free to <br>use without any<br>hidden cost</p></b>
+            </div>
+            <div class="three">
+                <b><p>How does the <br>conversion work?</p></b>
+                <b><p style="color:rgb(225, 220, 220)">Paste the link of a<br>YouTube video,<br>Choose your desired <br>from and to language<br>then click the<br>'convert' button</p></b>
+            </div>
+            <div class="three">
+                <b><p>Can I trust this <br>service?</p></b>
+                <b><p style="color:rgb(225, 220, 220)">Absolutely ! Privacy<br>and security are<br>Our top priorites,<br>and we take<br>measures to protect<br>your information</p></b>
+            </div>
+        </div>
+        <div clear="both"></div>
+    </div>
+    <div class="feedback">
+        <b><p style="font-family:Marko One;color:rgb(225, 220, 220);font-size:30px">We Value Your FeedBack!!</p></b><br>
+        <div class="cont">
+            <label style="color:white;font-family:Marko One;font-size:25px">Name</label><br>
+            <input type="text"placeholder="Name" style="height:40px;width:350px;border-radius:10px;margin-top:30px">
+        </div>
+        <div clear="both"></div>
+        <div class="cont">
+            <label style="color:white;font-family:Marko one;font-size:25px">E-mail</label><br>
+            <input type="email" placeholder="E-Mail" style="height:40px;width:350px;border-radius:10px;margin-top:30px;margin-bottom:70px">
+        </div>
+        <div clear="both"></div>
+        <label style="color:white;font-family:Marko One;font-size:25px">Message</label><br>
+        <input type="text" style="width:75%;height:30vh;margin-top:30px;border-radius:10px;margin-bottom:50px"><br>
+        <button class="sub-btn">SUBMIT</button><br>
+        <p style="color:black;margin-top:50px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;background-color:rgb(244, 99, 99);height:25px">An innovative attempt  by team LINGO WIZARDS</p>
+    </div>
+</body>
+</html>
